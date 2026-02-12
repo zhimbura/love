@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>С Днём святого Валентина 💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
+  <style>
+    :root {
+      --rose-50: #fef7f8;
+      --rose-100: #fceef0;
+      --rose-200: #f9dce1;
+      --rose-300: #f4bec8;
+      --rose-400: #ec94a4;
+      --rose-500: #e06b82;
+      --rose-600: #c94d66;
+      --rose-700: #a93d52;
+      --rose-800: #8c3648;
+      --rose-900: #77323f;
+      --cream: #fefbf9;
+      --gold: #c9a962;
+      --gold-light: #e8d9b4;
+      --burgundy: #5c2a32;
+      --shadow-soft: 0 4px 24px rgba(92, 42, 50, 0.08);
+      --shadow-medium: 0 12px 40px rgba(92, 42, 50, 0.12);
+      --radius: 20px;
+      --radius-lg: 28px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--cream);
+      color: var(--burgundy);
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-weight: 400;
+    }
+
+    /* ========== ЭКРАН 1: Вопрос ========== */
+    .screen-intro {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: 
+        radial-gradient(ellipse 120% 80% at 50% 0%, var(--rose-100) 0%, transparent 55%),
+        radial-gradient(ellipse 80% 60% at 80% 90%, var(--rose-200) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 80% at 20% 70%, var(--rose-100) 0%, transparent 45%),
+        var(--cream);
+      transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.9s;
+    }
+
+    .screen-intro.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .hearts-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .heart-float {
+      position: absolute;
+      font-size: 1.25rem;
+      opacity: 0.15;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .heart-float:nth-child(1) { left: 8%; top: 18%; animation-delay: 0s; }
+    .heart-float:nth-child(2) { left: 85%; top: 25%; animation-delay: 1.2s; }
+    .heart-float:nth-child(3) { left: 45%; top: 75%; animation-delay: 2.5s; }
+    .heart-float:nth-child(4) { left: 22%; top: 55%; animation-delay: 0.6s; }
+    .heart-float:nth-child(5) { left: 72%; top: 82%; animation-delay: 1.8s; }
+    .heart-float:nth-child(6) { left: 12%; top: 88%; animation-delay: 3s; }
+    .heart-float:nth-child(7) { left: 92%; top: 12%; animation-delay: 0.3s; }
+    .heart-float:nth-child(8) { left: 55%; top: 35%; animation-delay: 2s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); opacity: 0.15; }
+      50% { transform: translateY(-15px) scale(1.05); opacity: 0.22; }
+    }
+
+    .intro-content {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      position: relative;
+      z-index: 1;
+      max-width: 520px;
+    }
+
+    .intro-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.85rem, 5.5vw, 2.75rem);
+      font-weight: 500;
+      color: var(--burgundy);
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+
+    .intro-title .heart {
+      display: inline-block;
+      animation: pulse-heart 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-heart {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .intro-question {
+      font-size: clamp(1rem, 2.8vw, 1.2rem);
+      color: var(--rose-800);
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: 0.01em;
+    }
+
+    .buttons-wrap {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      min-height: 52px;
+    }
+
+    .btn {
+      padding: 0.95rem 2.25rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+    }
+
+    .btn-yes {
+      background: linear-gradient(135deg, var(--rose-600) 0%, var(--rose-700) 100%);
+      color: white;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-yes:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .btn-yes:active {
+      transform: scale(0.98);
+    }
+
+    .btn-no {
+      background: linear-gradient(135deg, var(--rose-200) 0%, var(--rose-300) 100%);
+      color: var(--burgundy);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      transition: transform 0.2s ease, left 0.15s ease-out, top 0.15s ease-out, opacity 0.4s, visibility 0.4s;
+    }
+
+    .btn-no.hidden-btn {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* Модальное окно */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(92, 42, 50, 0.25);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: linear-gradient(160deg, #fff 0%, var(--rose-50) 100%);
+      padding: 2rem 2.25rem;
+      border-radius: var(--radius-lg);
+      max-width: 90%;
+      width: 400px;
+      text-align: center;
+      box-shadow: var(--shadow-medium);
+      border: 1px solid var(--rose-200);
+      animation: modalIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes modalIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--rose-700);
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-text {
+      font-size: 1rem;
+      color: var(--rose-800);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .modal-btn {
+      padding: 0.75rem 1.75rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      background: linear-gradient(135deg, var(--rose-600), var(--rose-700));
+      color: white;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .modal-btn:hover {
+      transform: scale(1.04);
+    }
+
+    /* ========== ЭКРАН 2: История (слайдер) ========== */
+    .screen-story {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+      background: var(--cream);
+      position: relative;
+    }
+
+    .screen-story.visible {
+      display: flex;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .story-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--rose-100);
+      z-index: 50;
+      overflow: hidden;
+    }
+
+    .story-progress-inner {
+      height: 100%;
+      background: linear-gradient(90deg, var(--rose-500), var(--rose-600));
+      border-radius: 0 2px 2px 0;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 0%;
+    }
+
+    .story-swiper-wrap {
+      flex: 1;
+      width: 100%;
+      height: 100vh;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+    }
+
+    .swiper-wrapper {
+      height: 100%;
+    }
+
+    .swiper-slide {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 3rem 1rem 5.5rem;
+      overflow: hidden;
+    }
+
+    .slide-inner {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .slide-caption {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-style: italic;
+      color: var(--burgundy);
+      text-align: center;
+      line-height: 1.4;
+      padding: 0 0.5rem;
+      margin-bottom: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .slide-media-wrap {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-medium);
+      background: #111;
+      flex: 1;
+      min-height: 0;
+      height: 70vh;
+      max-height: 75vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide-media-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .slide-media-wrap video,
+    .slide-media-wrap .plyr {
+      width: 100%;
+      height: 100%;
+      max-height: 75vh;
+    }
+
+    .slide-media-wrap .plyr__video-wrapper,
+    .slide-media-wrap .plyr__video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Клики по видео не переключают слайд */
+    .slide-media-wrap {
+      pointer-events: auto;
+    }
+
+    /* Текст истории к каждому слайду */
+    .slide-history-intro {
+      font-size: clamp(1rem, 2.2vw, 1.15rem);
+      color: var(--burgundy);
+      text-align: center;
+      line-height: 1.4;
+      margin-bottom: 0.35rem;
+      padding: 0 0.5rem;
+      font-weight: 500;
+    }
+
+    .slide-caption {
+      margin-bottom: 0.75rem;
+    }
+
+    /* Слайд с только текстом (финал) */
+    .swiper-slide.slide-final .slide-inner {
+      max-width: 560px;
+      text-align: center;
+    }
+
+    .slide-final .slide-media-wrap {
+      display: none;
+    }
+
+    .slide-final .slide-caption {
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      font-style: normal;
+      margin-bottom: 1rem;
+    }
+
+    .slide-final .slide-sign {
+      font-size: 1rem;
+      color: var(--rose-700);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+    }
+
+    .heart-final {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 1rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.15); opacity: 0.9; }
+    }
+
+    /* Навигация слайдера — всё в одну строку */
+    .story-nav {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 0.75rem;
+      padding: 0.5rem 1rem;
+      background: rgba(254, 251, 249, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 999px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--rose-100);
+      white-space: nowrap;
+    }
+
+    .story-nav-btn {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      border: 1px solid var(--rose-200);
+      background: #fff;
+      color: var(--rose-600);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+
+    .story-nav-btn:hover:not(:disabled) {
+      background: var(--rose-100);
+      color: var(--rose-700);
+      transform: scale(1.05);
+    }
+
+    .story-nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .story-nav-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .story-pagination {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 4px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .story-pagination .swiper-pagination-bullet {
+      width: 6px;
+      height: 6px;
+      flex-shrink: 0;
+      background: var(--rose-300);
+      opacity: 1;
+      transition: all 0.3s ease;
+      margin: 0 !important;
+    }
+
+    .story-pagination .swiper-pagination-bullet-active {
+      width: 18px;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--rose-500), var(--rose-600));
+    }
+
+    .story-counter {
+      font-size: 0.85rem;
+      color: var(--rose-700);
+      font-weight: 500;
+      flex-shrink: 0;
+      min-width: 2.8em;
+    }
+
+    /* Plyr — в тон валентинки, без рамок */
+    .slide-media-wrap .plyr {
+      --plyr-color-main: var(--rose-500);
+      --plyr-video-controls-background: linear-gradient(transparent, rgba(92, 42, 50, 0.85));
+      --plyr-video-control-color: #fff;
+      --plyr-control-radius: 12px;
+      --plyr-range-track-height: 6px;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
+    .slide-media-wrap .plyr__video-wrapper,
+    .slide-media-wrap .plyr video {
+      border: none !important;
+      border-radius: 0 !important;
+    }
+    .slide-media-wrap .plyr__control--overlaid {
+      background: var(--rose-500);
+    }
+    .slide-media-wrap .plyr__control--overlaid:hover {
+      background: var(--rose-600);
+    }
+
+    @media (max-width: 480px) {
+      .story-nav {
+        gap: 0.5rem;
+        padding: 0.4rem 0.75rem;
+      }
+      .story-pagination .swiper-pagination-bullet {
+        width: 5px;
+        height: 5px;
+      }
+      .story-pagination .swiper-pagination-bullet-active {
+        width: 14px;
+      }
+      .story-counter {
+        font-size: 0.8rem;
+        min-width: 2.5em;
+      }
+      .story-nav-btn {
+        width: 36px;
+        height: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Экран 1: Вопрос -->
+  <section class="screen-intro" id="screenIntro">
+    <div class="hearts-bg">
+      <span class="heart-float">❤</span>
+      <span class="heart-float">💕</span>
+      <span class="heart-float">❤</span>
+      <span class="heart-float">💗</span>
+      <span class="heart-float">❤</span>
+      <span class="heart-float">💕</span>
+      <span class="heart-float">❤</span>
+      <span class="heart-float">💗</span>
+    </div>
+    <div class="intro-content">
+      <h1 class="intro-title">С Днём святого Валентина, любимая <span class="heart">💕</span></h1>
+      <p class="intro-question">Ты согласна посмотреть нашу историю и вспомнить, как мы с тобой счастливы?</p>
+      <div class="buttons-wrap">
+        <button type="button" class="btn btn-yes" id="btnYes">Да, конечно!</button>
+        <button type="button" class="btn btn-no" id="btnNo">Нет</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h2 class="modal-title">Такой ответ не принимается 💕</h2>
+      <p class="modal-text">Тут только один правильный ответ — и он «Да»!</p>
+      <button type="button" class="modal-btn" id="modalClose">Окей, да!</button>
+    </div>
+  </div>
+
+  <!-- Фоновая музыка -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="Stephen Sanchez - Until I Found You.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Экран 2: История (слайды) -->
+  <section class="screen-story" id="screenStory">
+    <div class="story-progress">
+      <div class="story-progress-inner" id="storyProgress"></div>
+    </div>
+
+    <div class="story-swiper-wrap">
+      <div class="swiper" id="storySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="slide-inner">
+              <p class="slide-history-intro">Мы знакомы уже более 2 лет</p>
+              <p class="slide-caption">За это время мы ходили на первые свидания в кино.</p>
+              <div class="slide-media-wrap">
+                <img src="первые свидания в кино.jpg" alt="Первые свидания в кино">
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-inner">
+              <p class="slide-history-intro">Мы знакомы уже более 2 лет</p>
+              <p class="slide-caption">За это время мы пережили волнительное предложение руки и сердца.</p>
+              <div class="slide-media-wrap slide-video-wrap">
+                <video class="js-plyr" src="волнительное предложение руки и сердца .MP4" playsinline preload="auto"></video>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-inner">
+              <p class="slide-history-intro">Мы знакомы уже более 2 лет</p>
+              <p class="slide-caption">За это время мы распаковали самый лучший подарок в моей жизни.</p>
+              <div class="slide-media-wrap">
+                <img src="распаковка самого лучшего подарка в моей жизни.jpg" alt="Распаковка подарка">
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-inner">
+              <p class="slide-history-intro">Мы знакомы уже более 2 лет</p>
+              <p class="slide-caption">За это время мы сыграли нашу свадьбу.</p>
+              <div class="slide-media-wrap">
+                <img src="наша свадьба .jpg" alt="Наша свадьба">
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-inner">
+              <p class="slide-history-intro">Мы знакомы уже более 2 лет</p>
+              <p class="slide-caption">За это время мы отправились в первое совместное путешествие.</p>
+              <div class="slide-media-wrap slide-video-wrap">
+                <video class="js-plyr" src="наше первое совместное путешевствие.MP4" playsinline preload="auto"></video>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-inner">
+              <p class="slide-history-intro">Мы знакомы уже более 2 лет</p>
+              <p class="slide-caption">За это время мы побывали в Калининграде — с тобой он лучше Москвы.</p>
+              <div class="slide-media-wrap">
+                <img src="Калининград с тобой лучше Москвы.jpeg" alt="Калининград">
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-inner">
+              <p class="slide-history-intro">Мы знакомы уже более 2 лет</p>
+              <p class="slide-caption">За это время мы слушали, как ты играешь на пианино.</p>
+              <div class="slide-media-wrap">
+                <img src="люблю когда ты играешь на пианино.JPG" alt="Игра на пианино">
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-inner">
+              <p class="slide-history-intro">Мы знакомы уже более 2 лет</p>
+              <p class="slide-caption">Порой мы ругаемся и устаём, как наш любимый кот Никс.</p>
+              <div class="slide-media-wrap">
+                <img src="Порой мы ругаемся и устаем как наш любимый кот никс.jpeg" alt="Кот Никс">
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-inner">
+              <p class="slide-history-intro">Мы знакомы уже более 2 лет</p>
+              <p class="slide-caption">Что бы ни было сказано в не лучшие моменты — я всё равно люблю тебя больше всего на свете.</p>
+              <div class="slide-media-wrap">
+                <img src="но что бы не было сказано в не лучшие моменты, я все равно люблю тебя больше всего на свете.jpeg" alt="Любовь">
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide slide-final">
+            <div class="slide-inner">
+              <span class="heart-final">❤️</span>
+              <p class="slide-caption">Спасибо, что ты есть.<br>Я люблю тебя.</p>
+              <p class="slide-sign">— твой муж, с любовью в День святого Валентина</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-nav" id="storyNav">
+      <button type="button" class="story-nav-btn" id="btnPrev" aria-label="Назад">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="story-pagination" id="storyPagination"></div>
+      <span class="story-counter" id="storyCounter">1 / 10</span>
+      <button type="button" class="story-nav-btn" id="btnNext" aria-label="Вперёд">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.min.js"></script>
+  <script>
+    (function () {
+      const screenIntro = document.getElementById('screenIntro');
+      const screenStory = document.getElementById('screenStory');
+      const btnYes = document.getElementById('btnYes');
+      const btnNo = document.getElementById('btnNo');
+      const modalOverlay = document.getElementById('modalOverlay');
+      const modalClose = document.getElementById('modalClose');
+      const storyProgress = document.getElementById('storyProgress');
+      const storyCounter = document.getElementById('storyCounter');
+      const btnPrev = document.getElementById('btnPrev');
+      const btnNext = document.getElementById('btnNext');
+
+      const TOTAL_SLIDES = 10;
+
+      // ——— Кнопка "Нет": ускальзывает ОТ курсора (убегает) ———
+      let noClicked = false;
+      let noOffsetX = 0, noOffsetY = 0;
+      const ESCAPE_RADIUS = 160;   // дистанция, с которой кнопка начинает убегать
+      const ESCAPE_STEP = 90;      // на сколько пикселей сдвигается за раз
+      const MAX_OFFSET = 280;      // не уезжать за пределы экрана
+
+      function escapeNoButton(e) {
+        if (noClicked) return;
+        const rect = btnNo.getBoundingClientRect();
+        const btnCenterX = rect.left + rect.width / 2;
+        const btnCenterY = rect.top + rect.height / 2;
+        const dx = e.clientX - btnCenterX;
+        const dy = e.clientY - btnCenterY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < ESCAPE_RADIUS && dist > 5) {
+          // Вектор от курсора к кнопке = направление побега
+          const ux = -dx / dist;
+          const uy = -dy / dist;
+          noOffsetX += ux * ESCAPE_STEP;
+          noOffsetY += uy * ESCAPE_STEP;
+          noOffsetX = Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, noOffsetX));
+          noOffsetY = Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, noOffsetY));
+          btnNo.style.transform = 'translate(' + noOffsetX + 'px, ' + noOffsetY + 'px)';
+        }
+      }
+
+      document.addEventListener('mousemove', escapeNoButton);
+
+      btnNo.addEventListener('click', function () {
+        if (noClicked) return;
+        noClicked = true;
+        modalOverlay.classList.add('show');
+        btnNo.classList.add('hidden-btn');
+      });
+
+      btnYes.addEventListener('click', function () {
+        startBgMusic();
+        screenIntro.classList.add('hidden');
+        setTimeout(function () {
+          screenIntro.style.display = 'none';
+          screenStory.classList.add('visible');
+          initSwiper();
+        }, 950);
+      });
+
+      modalClose.addEventListener('click', function () {
+        modalOverlay.classList.remove('show');
+        btnYes.click();
+      });
+
+      modalOverlay.addEventListener('click', function (e) {
+        if (e.target === modalOverlay) {
+          modalOverlay.classList.remove('show');
+          btnYes.click();
+        }
+      });
+
+      // ——— Слайдер истории ———
+      let storySwiper = null;
+
+      function initSwiper() {
+        storySwiper = new Swiper('#storySwiper', {
+          effect: 'fade',
+          fadeEffect: { crossFade: true },
+          allowTouchMove: true,
+          noSwipingClass: 'slide-media-wrap',
+          speed: 500,
+          slidesPerView: 1,
+          spaceBetween: 0,
+          pagination: {
+            el: '#storyPagination',
+            clickable: true
+          },
+          on: {
+            init: function() {
+              updateUI();
+              if (typeof Plyr !== 'undefined') initAllPlyr();
+              updateBgMusicVolume();
+              setTimeout(playVideoOnActiveSlide, 200);
+            },
+            slideChange: function() {
+              updateUI();
+              pauseAllPlyr();
+              updateBgMusicVolume();
+              setTimeout(playVideoOnActiveSlide, 200);
+            }
+          }
+        });
+
+        btnPrev.addEventListener('click', function () {
+          if (storySwiper && !storySwiper.destroyed) storySwiper.slidePrev();
+        });
+        btnNext.addEventListener('click', function () {
+          if (storySwiper && !storySwiper.destroyed) storySwiper.slideNext();
+        });
+
+        document.addEventListener('keydown', function (e) {
+          if (!screenStory.classList.contains('visible')) return;
+          if (e.key === 'ArrowLeft') storySwiper.slidePrev();
+          if (e.key === 'ArrowRight') storySwiper.slideNext();
+        });
+      }
+
+      function updateUI() {
+        if (!storySwiper) return;
+        const i = storySwiper.activeIndex;
+        const pct = ((i + 1) / TOTAL_SLIDES) * 100;
+        storyProgress.style.width = pct + '%';
+        storyCounter.textContent = (i + 1) + ' / ' + TOTAL_SLIDES;
+        btnPrev.disabled = i === 0;
+        btnNext.disabled = i === TOTAL_SLIDES - 1;
+      }
+
+      var plyrInstances = [];
+
+      function pauseAllPlyr() {
+        plyrInstances.forEach(function(p) {
+          if (p && p.pause) p.pause();
+        });
+        var allVideos = document.querySelectorAll('#storySwiper video');
+        allVideos.forEach(function(v) {
+          try { v.pause(); } catch (e) {}
+        });
+      }
+
+      var bgMusicDuckedVolume = 0.08;
+      var bgMusicFullVolume = 1;
+
+      function getBgMusic() {
+        return document.getElementById('bgMusic');
+      }
+
+      function startBgMusic() {
+        var bg = getBgMusic();
+        if (!bg) return;
+        bg.volume = bgMusicFullVolume;
+        bg.play().catch(function() {});
+      }
+
+      function updateBgMusicVolume() {
+        var bg = getBgMusic();
+        if (!bg || !storySwiper) return;
+        var slide = storySwiper.slides[storySwiper.activeIndex];
+        var hasVideo = slide && slide.querySelector('video');
+        bg.volume = hasVideo ? bgMusicDuckedVolume : bgMusicFullVolume;
+      }
+
+      function playVideoOnActiveSlide() {
+        if (!storySwiper || storySwiper.destroyed) return;
+        var slide = storySwiper.slides[storySwiper.activeIndex];
+        if (!slide) return;
+        var video = slide.querySelector('video');
+        if (!video) return;
+        getBgMusic() && (getBgMusic().volume = bgMusicDuckedVolume);
+        var doPlay = function() {
+          var p = video.plyr && video.plyr.play ? video.plyr.play() : video.play();
+          if (p && typeof p.then === 'function') {
+            p.catch(function() {
+              video.muted = true;
+              video.play();
+              if (video.plyr && video.plyr.unmute) video.plyr.unmute();
+            });
+          }
+        };
+        try {
+          doPlay();
+        } catch (e) {
+          video.muted = true;
+          try { video.play(); } catch (e2) {}
+        }
+        video.addEventListener('ended', function onVideoEnded() {
+          video.removeEventListener('ended', onVideoEnded);
+          var bg = getBgMusic();
+          if (bg) bg.volume = bgMusicFullVolume;
+        }, { once: true });
+      }
+
+      function initAllPlyr() {
+        if (!storySwiper || typeof Plyr === 'undefined') return;
+        var videos = document.querySelectorAll('#storySwiper video.js-plyr');
+        videos.forEach(function(video) {
+          if (video.plyr) return;
+          try {
+            var player = new Plyr(video, {
+              controls: ['play-large', 'play', 'progress', 'current-time', 'duration', 'mute', 'volume', 'fullscreen'],
+              hideControls: true,
+              clickToPlay: true,
+              ratio: '16:9'
+            });
+            plyrInstances.push(player);
+          } catch (e) {}
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
