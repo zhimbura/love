@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>С Днём святого Валентина 💕</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,8 +46,11 @@
       background: var(--cream);
       color: var(--burgundy);
       min-height: 100vh;
+      min-height: 100dvh;
       overflow-x: hidden;
       font-weight: 400;
+      padding-left: env(safe-area-inset-left, 0);
+      padding-right: env(safe-area-inset-right, 0);
     }
 
     /* ========== ЭКРАН 1: Вопрос ========== */
@@ -281,7 +284,7 @@
 
     .story-progress {
       position: fixed;
-      top: 0;
+      top: env(safe-area-inset-top, 0);
       left: 0;
       right: 0;
       height: 3px;
@@ -323,6 +326,7 @@
       align-items: center;
       justify-content: flex-start;
       padding: 3rem 1rem 5.5rem;
+      padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
       overflow: hidden;
     }
 
@@ -441,7 +445,7 @@
     /* Навигация слайдера — всё в одну строку */
     .story-nav {
       position: fixed;
-      bottom: 1.5rem;
+      bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
       left: 50%;
       transform: translateX(-50%);
       z-index: 50;
@@ -450,6 +454,7 @@
       flex-wrap: nowrap;
       gap: 0.75rem;
       padding: 0.5rem 1rem;
+      padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
       background: rgba(254, 251, 249, 0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -548,8 +553,11 @@
 
     @media (max-width: 480px) {
       .story-nav {
+        bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
         gap: 0.5rem;
         padding: 0.4rem 0.75rem;
+        padding-bottom: calc(0.4rem + env(safe-area-inset-bottom, 0px));
+        max-width: calc(100vw - 2rem);
       }
       .story-pagination .swiper-pagination-bullet {
         width: 5px;
@@ -565,6 +573,9 @@
       .story-nav-btn {
         width: 36px;
         height: 36px;
+      }
+      .swiper-slide {
+        padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
       }
     }
   </style>
