@@ -321,6 +321,7 @@
 
     .swiper-slide {
       height: 100%;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -462,6 +463,7 @@
       box-shadow: var(--shadow-soft);
       border: 1px solid var(--rose-100);
       white-space: nowrap;
+      box-sizing: border-box;
     }
 
     .story-nav-btn {
@@ -553,26 +555,41 @@
 
     @media (max-width: 480px) {
       .story-nav {
+        left: max(8px, env(safe-area-inset-left, 0px));
+        right: max(8px, env(safe-area-inset-right, 0px));
         bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
-        gap: 0.5rem;
-        padding: 0.4rem 0.75rem;
-        padding-bottom: calc(0.4rem + env(safe-area-inset-bottom, 0px));
-        max-width: calc(100vw - 2rem);
+        transform: none;
+        width: auto;
+        gap: 0.4rem;
+        padding: 0.35rem 0.5rem;
+        padding-bottom: calc(0.35rem + env(safe-area-inset-bottom, 0px));
+      }
+      .story-pagination {
+        flex-shrink: 1;
+        min-width: 0;
+        overflow: hidden;
+        justify-content: center;
+        gap: 2px;
       }
       .story-pagination .swiper-pagination-bullet {
-        width: 5px;
-        height: 5px;
+        width: 4px;
+        height: 4px;
       }
       .story-pagination .swiper-pagination-bullet-active {
-        width: 14px;
+        width: 10px;
       }
       .story-counter {
-        font-size: 0.8rem;
-        min-width: 2.5em;
+        font-size: 0.75rem;
+        min-width: 2.2em;
       }
       .story-nav-btn {
-        width: 36px;
-        height: 36px;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+      }
+      .story-nav-btn svg {
+        width: 16px;
+        height: 16px;
       }
       .swiper-slide {
         padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
@@ -811,8 +828,7 @@
         storySwiper = new Swiper('#storySwiper', {
           effect: 'fade',
           fadeEffect: { crossFade: true },
-          allowTouchMove: true,
-          noSwipingClass: 'slide-media-wrap',
+          allowTouchMove: false,
           speed: 500,
           slidesPerView: 1,
           spaceBetween: 0,
